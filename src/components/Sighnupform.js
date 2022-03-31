@@ -1,58 +1,63 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import axios from "axios";
 
-function Signupform() {
 
-  const [firstname, setfirstname] = useState("");
-  const [lastname, setlastname] = useState("");
+function Signupform() {
   const [username, setusername] = useState("");
-  const [email, setemail] = useState("");
   const [mobile, setmobile] = useState("");
   const [password, setpassword] = useState("");
+  let errorsObj = {email: "", password: ""};
+const [errors, seterrors] = useState(errorsObj);
 
-    const signup=async()=> {
-    // let data = { firstname, lastname, username, email, mobile, password };
-    // console.log(data);
+  let navigate =useNavigate();
+  
+ 
+  const getrequest = (e) => {
 
-    const postdata = {
-      email: email,
-      firstName: firstname,
-      lastName: lastname,
-      mobileNo: mobile,
-      password: password,
-      username: username,
-    };console.log(postdata);
-    alert("hii");
+    
 
-   await axios
-     .post("http://65.0.112.127:8080/core/auth/public/signup", {
-       mobileNo: mobile,
-       password: password,
-       username: username,
-     })
-     .then(function (response) {
-       console.log(response);
-     })
-     .catch(function (error) {
-       console.log(error);
-     });
-    //  let result=await fetch("http://65.0.112.127:8080/core/auth/public/signup", {
-    //     method: "POST", //in this all the given data is uploading to server
-    //     headers: { "Content-type": "application/json",
-    //                 "Accept":"application/json" },
-    //     body: JSON.stringify({
-    //       email: email,
-    //       firstName: firstname,
-    //       lastName: lastname,
-    //       mobileNo: mobile,
-    //       password: password,
-    //       username: username,
-    //     }),
-    //   });
-    //     result=await result.json();
-    //     console.log(result);
-  }
+
+
+
+
+   var currentstatus = "";
+
+    e.preventDefault();
+    const postdata = { username: username, password: password, mobileNo:mobile };
+    console.log(postdata);
+
+    axios
+      .post(
+        "http://65.0.112.127:8080/core/auth/public/signup",
+        {
+          username: username,
+          password: password,
+          mobileNo: mobile,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      )
+      .then(function (response) {
+        console.log(response);
+        currentstatus= response.status.toString();
+        if(currentstatus=="200") {
+          navigate('/Otp')
+        }
+      })
+      .catch(function (error) {
+        // console.log(error);
+        alert("login unsuccessful " + error);
+      });
+  };
+
+
+
 
   return (
     <div className="container">
@@ -61,24 +66,6 @@ function Signupform() {
           <h2 className="title">Create Account</h2>
         </div>
         <form className="form-wrapper">
-          {/* <div className="firstname">
-            <label className="lable">First Name</label>
-            <input
-              className="input"
-              type="text"
-              value={firstname}
-              onChange={(e) => setfirstname(e.target.value)}
-            />
-          </div> */}
-          {/* <div className="lastname">
-            <label className="lable">Last Name</label>
-            <input
-              className="input"
-              type="text"
-              value={lastname}
-              onChange={(e) => setlastname(e.target.value)}
-            />
-          </div> */}
           <div className="username">
             <label className="lable">User-Name</label>
             <input
@@ -88,15 +75,6 @@ function Signupform() {
               onChange={(e) => setusername(e.target.value)}
             />
           </div>
-          {/* <div className="email">
-            <label className="lable">Email Address</label>
-            <input
-              className="input"
-              type="email"
-              value={email}
-              onChange={(e) => setemail(e.target.value)}
-            />
-          </div> */}
           <div className="mobile">
             <label className="lable">Mobile No.</label>
             <input
@@ -117,7 +95,7 @@ function Signupform() {
           </div>
         </form>
         <div>
-          <button className="submit" onClick={signup}>
+          <button className="submit" onClick={getrequest}>
             Sign Up
           </button>
         </div>
