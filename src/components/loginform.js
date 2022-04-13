@@ -38,8 +38,8 @@ function loginform() {
            }
          )
          .then(function (response) {
-           console.log(response.data.accessToken);
-           const data=response.data.accessToken;
+           console.log(response); //.data.accessToken
+           const data = response.data.accessToken;
            currentstatus = response.status.toString();
            if (currentstatus === "200") {
              navigate("/Afterlogin", data);

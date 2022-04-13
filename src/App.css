@@ -4,7 +4,7 @@
 }
 
 .container{
-  background: linear-gradient(135deg, #ffffff, #696767);
+  background: linear-gradient(135deg, #efcfe3, #e27396);
   width: 100%;
   min-height: 100vh;
   display: flex;
@@ -13,7 +13,7 @@
 }
 
 .app-wrapper {
-  background-color: #fff;
+  background-color: #ffeef4;
   min-height: 70%;
   min-width:30%;
   padding: 30px;
@@ -24,7 +24,7 @@
 }
 
 .title {
-  color: #120107;
+  color: #e01889;
   text-align: center;
   margin: 80px 0px 40px 0px;
 }
@@ -35,7 +35,7 @@
 .password {
   margin: 20px;
   color: #969292;
-  font-size:16px;
+  font-size:18px;
 }
 .alredyhaveaccount{
   display:flex;
@@ -58,6 +58,7 @@ color: #5d5b5b;
 .password{margin-bottom: 40px;}
 
 .input{
+  background-color: #ffeef4;
   height:30px;
   font-size: 20px;
   outline:none;
